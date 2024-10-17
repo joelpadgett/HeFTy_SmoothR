@@ -1,6 +1,6 @@
 Package: HeFTy.SmoothR
 Title: Density estimates of inverse thermal history models
-Version: 0.4.1.9000
+Version: 0.4.2
 Authors@R: c(
     person("Joel", "Padgett", , "joel.padgett@ucalgary.ca", role = c("aut", "cph")),
     person("Tobias", "Stephan", , "tobias.stephan1@yahoo.com", role = c("aut", "cre"),
