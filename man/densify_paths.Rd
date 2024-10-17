@@ -4,27 +4,25 @@
 \alias{densify_paths}
 \title{Densify Paths}
 \usage{
-densify_paths(x, GOF_threshold = 10, n = 10L, samples = 100L)
+densify_paths(x, GOF_rank = 10L, n = 10L, samples = 100L)
 }
 \arguments{
 \item{x}{t-T and GOF data of the modeled paths. Out put of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
 
-\item{GOF_threshold}{numeric. Selects only data where the GOF rank is
-less or equal than this threshold.}
+\item{GOF_rank}{numeric. Selects only the n highest GOF ranked paths.}
 
 \item{n}{integer. Adds \code{n} equally-spaced extra points along each path
-segment (between knickpoints). The default is 10.}
+segment (between vertices). The default is 10.}
 
 \item{samples}{integer. Number of random samples of the data. This number should
 be less or equal then the\code{nrow(x)}. Be aware that a large number will require
-a long(!) processing time. The default is \code{samples = 100}}
+a long(!) processing time. The default is \code{100}.}
 }
 \value{
 data.frame
 }
 \description{
-Adds extra points along the paths to ensure that all t-T points are treated
-equally for the path density.
+Adds extra points between the vertices of the path segments
 }
 \examples{
 data(s14MM_v1)

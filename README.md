@@ -1,5 +1,9 @@
 # HeFTy_SmoothR
 
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/joelpadgett/HeFTy_SmoothR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/joelpadgett/HeFTy_SmoothR/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 Density plots derived from HeFTy inverse thermal history models as seen in Padgett et al. (submitted) and Johns-Buss et al. (submitted). 
 
 

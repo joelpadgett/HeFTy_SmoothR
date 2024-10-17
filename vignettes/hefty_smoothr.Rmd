@@ -135,9 +135,9 @@ This uses the package's default values for smoothing and binning and creates a `
 
 You can customize the smoothing and density binning by changing the parameters
 - `bins` - the number of filled contours.
-- `GOF_threshold` - A low number when only the best constrained paths should be considered, and a large number when even less constrained paths can be considered. 
-- `densify` - Should extra points be added along the individual paths to ensure that not only the knickpoints of the path are evaluated? 
-- `n` - How many equally-spaced extra points should be added along between the knickpoints of the path (if `densify=TRUE`).
+- `GOF_rank` - Selects only the n highest GOF ranked paths.
+- `densify` - Should extra points be added along the individual paths to avoid that only the vertices of the path are evaluated? 
+- `n` - How many equally-spaced extra points should be added along between the vertices of the path (if `densify=TRUE`).
 - `samples` - Size of a random subsample of all the paths to reduce the computation time.
 
 
@@ -146,14 +146,14 @@ set.seed(123)
 ```
 
 ```{r plot2, out.width="100%"}
-plot2 <- plot_path_density_filled(tT_paths, bins = 25, GOF_threshold = 5, densify = TRUE, n = 100, samples = 100, show.legend = FALSE) 
+plot2 <- plot_path_density_filled(tT_paths, bins = 25, GOF_rank = 5, densify = TRUE, n = 100, samples = 100, show.legend = FALSE)
 plot2
 ```
 
-Finally, you can also customize the ggplot for labeling, change colors, and reverse the axes: 
+Finally, you can customize your ggplot, such as axes labels, change colors, and reverse the axes: 
 
 ```{r plot3, out.width="100%"}
-plot2 + 
+plot2 +
   labs(title = "TITLE HERE", x = "Time (Ma)", y = bquote("Temperature (" * degree * ")")) + # type title of plot and put in double quotes
   theme_bw() + # sets a ggplot theme
   coord_cartesian(xlim = c(110, 0), ylim = c(200, 0), expand = FALSE) + # set x and y limits of plot
