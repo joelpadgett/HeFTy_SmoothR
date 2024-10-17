@@ -1,6 +1,6 @@
 ---
 title: "HeFTy tT Density Plots v4"
-author: "Joel Padget"
+author: "Joel Padget & Tobias Stephan"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -52,7 +52,7 @@ library(HeFTy.SmoothR)
   -	Right-click inside the time-temperature window (for example, the location of the “X” in Figure 1).  Scroll down to “Export”. Click “Save as Text”. Save the .txt file. The text file should look similar to Figure 2.
   -	Open a new excel (.xlsx) file. Copy all the text from the text file. Click on cell A1 in the newly-created and paste the copied-text. Your excel sheet should now look similar to the excel sheet in Figure 2. 
 
- ![Figure 2](Fig2.jpg)
+ ![Figure 2](Fig2.jpg){width=75%}
 
 
 
@@ -61,9 +61,9 @@ library(HeFTy.SmoothR)
   -	Find the row that reads (from column A to the right): “Fit”, “Comp. GOF”, … In Figure 3 this is row 26. Keep this row and delete every row in the table above this one. The result should look like Figure 4. 
   
   
-   ![Figure 3](Fig3.jpg)
+   ![Figure 3](Fig3.jpg){width=75%}
    
-   ![Figure 4](Fig4.jpg)
+   ![Figure 4](Fig4.jpg){width=75%}
    
   -	Scroll to the rightmost column in the data sheet. This will vary for each sample depending on the model setup. In Figure 3, this is column AA.
   -	Create a new sheet in the same .xlsx file. Call it “GOF”.
@@ -71,21 +71,21 @@ library(HeFTy.SmoothR)
   -	Delete row 1 from Paths sheet. 
   -	Find the column with that reads (from row 1 down): “Time (Ma)”, “Temperature”, “Time (Ma)”, “Temperature” … This is column D in Figure 4. Delete all columns before this one. The resulting table should look similar to Figure 5. 
   
-   ![Figure 5](Fig5.jpg)
+   ![Figure 5](Fig5.jpg){width=75%}
   
   -	Find the last column in the data table (column V in Figure 6). Values in this column should alternative 0 and a number, 0, and a number. Check that this pattern in maintained through the whole column. Also ensure that every row in the table ends at column V. 
 
- ![Figure 6](Fig6.jpg)
+ ![Figure 6](Fig6.jpg){width=50%}
 
 3. Prepare GOF spreadsheet
   -	Open the GOF spreadsheet. 
   -	Rename column B from “Comp. GOF” to “Comp_GOF”. Important: make sure there are no spaces in the column name.
   -	Fill in this cell B2 with a “0”. It will likely be blank when you first paste these columns in the GOF sheet. If there is a non-zero value in cell B2, replace it with a 0. The resulting spreadsheet should look like Figure 6.
   
-   ![Figure 6](Fig6.jpg)
+   ![Figure 6](Fig6.jpg){width=50%}
    
   -	Select all of the data in the spreadsheet and under Sort & Filter click Filter. Click the dropdown arrow for Column B. Uncheck “Select All” and then check “0”. The resulting table should look similar to Figure 7.
-   ![Figure 8](Fig8.jpg)
+   ![Figure 8](Fig8.jpg){width=50%}
    
   -	Select all of the filtered records and delete them. Note: if there are lots of records, you may need to do this in batches. 
   -	Turn off the filter to view all of the remaining records. Check that cell the column labels are still in row 1 and that cell B2 says “Best”. Also check that every cell in column B has a numerical value in it. The values in column B should be decreasing. 
@@ -94,7 +94,7 @@ library(HeFTy.SmoothR)
   -	In cell C3, type the following equation (without the quotation marks): “= 1 + C2”. Apply this equation to all cells in the row by clicking on the cell and then double-clicking on the small box that appears in the bottom right corner of the cell. See Figure 8.
   -	Copy all of column C and paste it as values into column D (right click and choose paste as values). Columns C and D should now look the same. Now delete Column C. The final table should look like Figure 8.
   
-   ![Figure 8](Fig8.jpg)
+   ![Figure 8](Fig8.jpg){width=50%}
    
   -	Save the spreadsheet as a .xlsx file.
 
@@ -116,7 +116,7 @@ Next, you import the excel file into R by using the function `read_hefty_xlsx()`
 tT_paths <- read_hefty_xlsx(path2myfile)
 ```
 
-# Plot the path density ---------------------------------------------
+## Plot the path density ---------------------------------------------
 
 
 To plot the density of the paths, you simply use the function `plot_path_density()`:
@@ -125,10 +125,11 @@ To plot the density of the paths, you simply use the function `plot_path_density
 set.seed(123)
 ```
 
-```{r plot1}
+```{r plot1, out.width="100%"}
 plot1 <- plot_path_density(tT_paths)
-plot1
+plot1 + guides(fill = 'none')
 ```
+
 This uses the package's default values for smoothing and binning and creates a `ggplot` type graphic. 
 
 
@@ -144,15 +145,16 @@ You can customize the smoothing and density binning by changing the parameters
 set.seed(123)
 ```
 
-```{r plot2}
-plot2 <- plot_path_density(tT_paths, bins = 25, GOF_threshold = 5, densify = TRUE, n = 100, samples = 100)
-plot2
+```{r plot2, out.width="100%"}
+plot2 <- plot_path_density(tT_paths, bins = 25, GOF_threshold = 5, densify = TRUE, n = 100, samples = 100) 
+plot2 + guides(fill = 'none')
 ```
 
 Finally, you can also customize the ggplot for labeling, change colors, and reverse the axes: 
 
-```{r plot3}
-plot2 +
+```{r plot3, out.width="100%"}
+plot2 + 
+  guides(fill = 'none') +
   labs(title = "TITLE HERE", x = "Time (Ma)", y = bquote("Temperature (" * degree * ")")) + # type title of plot and put in double quotes
   theme_bw() + # sets a ggplot theme
   coord_cartesian(xlim = c(110, 0), ylim = c(200, 0), expand = FALSE) + # set x and y limits of plot
