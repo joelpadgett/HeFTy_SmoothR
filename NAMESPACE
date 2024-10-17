@@ -2,6 +2,7 @@
 
 export(densify_paths)
 export(plot_path_density)
+export(plot_path_density_filled)
 export(read_hefty_xlsx)
 import(ggh4x)
 import(ggplot2)

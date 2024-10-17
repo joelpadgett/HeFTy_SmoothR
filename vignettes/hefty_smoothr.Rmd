@@ -4,7 +4,7 @@ author: "Joel Padget & Tobias Stephan"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{1. Introduction to tectonicr}
+  %\VignetteIndexEntry{HeFTy tT Density Plots v4}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -126,8 +126,8 @@ set.seed(123)
 ```
 
 ```{r plot1, out.width="100%"}
-plot1 <- plot_path_density(tT_paths)
-plot1 + guides(fill = 'none')
+plot1 <- plot_path_density_filled(tT_paths, show.legend = FALSE)
+plot1
 ```
 
 This uses the package's default values for smoothing and binning and creates a `ggplot` type graphic. 
@@ -146,15 +146,14 @@ set.seed(123)
 ```
 
 ```{r plot2, out.width="100%"}
-plot2 <- plot_path_density(tT_paths, bins = 25, GOF_threshold = 5, densify = TRUE, n = 100, samples = 100) 
-plot2 + guides(fill = 'none')
+plot2 <- plot_path_density_filled(tT_paths, bins = 25, GOF_threshold = 5, densify = TRUE, n = 100, samples = 100, show.legend = FALSE) 
+plot2
 ```
 
 Finally, you can also customize the ggplot for labeling, change colors, and reverse the axes: 
 
 ```{r plot3, out.width="100%"}
 plot2 + 
-  guides(fill = 'none') +
   labs(title = "TITLE HERE", x = "Time (Ma)", y = bquote("Temperature (" * degree * ")")) + # type title of plot and put in double quotes
   theme_bw() + # sets a ggplot theme
   coord_cartesian(xlim = c(110, 0), ylim = c(200, 0), expand = FALSE) + # set x and y limits of plot

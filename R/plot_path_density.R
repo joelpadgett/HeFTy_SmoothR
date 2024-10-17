@@ -7,24 +7,45 @@
 #' @param bins integer. Amount of bins used for the kernel density estimate. 50 by default.
 #' @param densify logical. Whether the paths in `x` should be densified first?
 #' Default is `TRUE`.
-#' @param ... optional arguments passed to [densify_paths()] (only if `densify==TRUE`).
+#' @param show.legend logical. Should this layer be included in the legends? `NA`,
+#' the default, includes if any aesthetics are mapped. `FALSE` never includes,
+#' and `TRUE` always includes. It can also be a named logical vector to finely
+#' select the aesthetics to display.
+#' @param ... optional arguments passed to [densify_paths()] (only if `densify=TRUE`).
 #'
 #' @return ggplot
 #' @import ggplot2
 #' @import ggh4x
-
-#' @export
+#'
+#' @name plt_density
 #'
 #' @examples
 #' data(s14MM_v1)
 #' plot_path_density(s14MM_v1)
-plot_path_density <- function(x, bins = 50L, densify = TRUE, ...) {
-  # globalVariables(c("time", "temperature"))
+#' plot_path_density_filled(s14MM_v1)
+NULL
+
+#' @rdname plt_density
+#' @export
+plot_path_density_filled <- function(x, bins = 50L, densify = TRUE, show.legend = NA, ...) {
   time <- temperature <- NULL
   if (densify) x <- densify_paths(x, ...)
 
   ggplot(data = x, aes(x = time, y = temperature)) +
-    geom_density2d_filled(contour_var = "ndensity", bins = bins) +
+    geom_density2d_filled(contour_var = "ndensity", bins = bins, show.legend = show.legend) +
+    theme(
+      ggh4x.axis.ticks.length.minor = rel(1)
+    )
+}
+
+#' @rdname plt_density
+#' @export
+plot_path_density <- function(x, bins = 50L, densify = TRUE, show.legend = NA, ...) {
+  time <- temperature <- NULL
+  if (densify) x <- densify_paths(x, ...)
+
+  ggplot(data = x, aes(x = time, y = temperature)) +
+    geom_density2d(contour_var = "ndensity", bins = bins, show.legend = show.legend) +
     theme(
       ggh4x.axis.ticks.length.minor = rel(1)
     )
