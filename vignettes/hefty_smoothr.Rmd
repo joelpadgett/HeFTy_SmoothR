@@ -1,0 +1,101 @@
+---
+title: "HeFTy tT Density Plots v4"
+author: "Joel Padget"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{1. Introduction to tectonicr}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Some background
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r packages}
+library(readxl)
+library(dplyr)
+library(tibble)
+library(ggplot2)
+library(data.table)
+library(smoothr)
+library(scico)
+library(ggh4x)
+```
+
+## Load Input Data ------------------------------------------------------
+
+```{r data}
+hs.input <- read_xlsx("s4MM_v6.xlsx", sheet = 1, col_names = FALSE) # load t-T data
+
+hs.GOF <- read_xlsx("s4MM_v6.xlsx", sheet = 2, col_names = TRUE) # load GOF sheet
+```
+
+### 3a. Create Spreadsheet -----------------------------------------------------
+
+```{r data}
+
+hs.input <- hs.input %>%
+  dplyr::select(-"...1") %>% # select and remove the '...1' from the column names
+  combine_rows() %>% # run combine_rows function
+  mutate(segment = Assign_segment(time)) # run Assign_segment function on the time column of hs.input; then mutate function takes output of assign_segment
+
+hs.input.GOF <- merge(hs.input, hs.GOF, by = "segment")
+```
+
+### 3b. Subset Data  --------------------------------------------
+
+# Subset Data by Highest N GOF Values (If Desired)
+
+hs.input.GOF$rank <- dense_rank(-hs.input.GOF$Comp_GOF) # Rank Comp_GOF values with lowest rank (1) being highest GOF value
+hs.input <- filter(hs.input.GOF, rank <= 50) # Remove all t-T points with rank greater than N; new table shows top N GOF t-T points
+
+# Subset data by randmon N number of segments (If Desired)
+
+subset_segments <- hs.input %>% # get unique segments
+  distinct(segment) %>% # distinct() gets unique records from the desired field, segments
+  sample_n(N) # Randomly select N unique segments
+hs.input <- hs.input %>% # filter the original data for the segments selected in unique_segments
+  semi_join(subset_segments, by = "segment") # semi_join filters the original data to include only rows that match the selected segments
+
+
+# 4. Make Density Plot ---------------------------------------------
+
+hs.OG.denser <- hs.input %>%
+  mutate(x = time, y = temperature) %>%
+  sf::st_as_sf(coords = c("x", "y")) %>% # make a spatial feature where x and y are the spatial coordinates
+  summarise(do_union = FALSE) %>%
+  sf::st_cast("LINESTRING") %>%
+  sf::st_cast("MULTILINESTRING") %>%
+  smoothr::densify(n = 10L) # this sets the number of points that will be added to each segment. This can be changed as desired
+
+hs.OG.denser.coords <- sf::st_coordinates(hs.OG.denser)
+hs.OG.denser <- sf::st_drop_geometry(hs.OG.denser) %>%
+  cbind(hs.OG.denser.coords) %>%
+  rename(time = X, temperature = Y) %>%
+  dplyr::select(-L1, -L2)
+
+ggplot(data = hs.OG.denser, aes(x = time, y = temperature)) +
+  ggtitle("TITLE HERE") + # type title of plot and put in double quotes
+  coord_cartesian(xlim = c(110, 0), ylim = c(200, 0)) + # set x and y limits of plot
+  scale_x_continuous(breaks = seq(0, 110, 50), minor_breaks = seq(0, 110, by = 10), guide = "axis_minor") + # set the major ticks: (breaks = seq(0, 110, 50) --> axis major ticks go from 0 to 110 with divisions of 50. Set the minor ticks: minor_breaks = seq(0, 110, by = 10) --> minor ticks range from 0 to 110 with divisions of 10
+  scale_y_continuous(breaks = seq(200, 0, -20), minor_breaks = seq(200, 0, by = -10), guide = "axis_minor") + # set the major ticks: (breaks = seq(200, 0, -20) --> axis major ticks go from 220 to 0 with divisions of 20 (negative because 0 is at the top of the plot). Set the minor ticks: minor_breaks = seq(200, 0, by = -10) --> minor ticks range from 200 to 0 with divisions of 10 (negative because 0 is at the top of the plot)
+  geom_density2d_filled(contour_var = "ndensity", bins = 50) +
+  scico::scale_fill_scico_d(palette = "davos", direction = -1) + # view available color palette options: https://www.data-imaginist.com/posts/2018-05-30-scico-and-the-colour-conundrum/
+  theme(
+    legend.position = "none",
+    ggh4x.axis.ticks.length.minor = rel(1)
+  )
