@@ -44,7 +44,6 @@ assign_segment <- function(x) { # create new function called Assign_segment
 #'
 #' @return `data.frame` of the combined data
 #'
-#' @importFrom magrittr `%>%`
 #' @importFrom readxl read_xlsx
 #' @importFrom dplyr mutate
 #' @export

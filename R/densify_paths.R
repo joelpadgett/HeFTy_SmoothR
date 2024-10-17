@@ -17,7 +17,6 @@
 #' @importFrom sf st_as_sf st_cast st_drop_geometry st_coordinates
 #' @importFrom smoothr densify
 #' @importFrom dplyr dense_rank filter distinct sample_n semi_join mutate summarise bind_cols rename select
-#' @importFrom rlang .data
 #'
 #' @export
 #'

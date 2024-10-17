@@ -17,7 +17,6 @@ Imports:
     ggplot2,
     magrittr,
     readxl,
-    rlang,
     sf,
     smoothr
 Suggests: 
