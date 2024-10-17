@@ -1,19 +1,30 @@
 Package: HeFTy.SmoothR
-Title: Density estimates of modelled paths
+Title: Density estimates of inverse thermal history models
 Version: 0.4.1.9000
-Authors@R: 
+Authors@R: c(
+    person("Joel", "Padgett", , "joel.padgett@ucalgary.ca", role = c("aut", "cph")),
     person("Tobias", "Stephan", , "tobias.stephan1@yahoo.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9290-014X"))
-Description: some description
-License: GPL (>= 3)
+  )
+Description: Creates density plots for HeFTy modelled time-temperature
+    cooling paths.
+License: MIT + file LICENSE
 Depends: 
     R (>= 4.1.0)
 Imports:
-    ggplot2
+    dplyr,
+    ggh4x,
+    ggplot2,
+    magrittr,
+    readxl,
+    rlang,
+    sf,
+    smoothr
 Suggests: 
     knitr,
     rmarkdown,
     roxygen2,
+    scico,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr

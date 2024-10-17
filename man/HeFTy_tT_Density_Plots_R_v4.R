@@ -67,14 +67,14 @@ Assign_segment <- function(x) { # create new function called Assign_segment
 
 # 3. Load Input Data ------------------------------------------------------
 
-hs.input <- read_xlsx("s4MM_v6.xlsx", sheet = 1, col_names = FALSE) # load t-T data
+hs.input <- read_xlsx("data-raw/s14MM_v1.xlsx", sheet = 1, col_names = FALSE) # load t-T data
 
-hs.GOF <- read_xlsx("s4MM_v6.xlsx", sheet = 2, col_names = TRUE) # load GOF sheet
+hs.GOF <- read_xlsx("data-raw/s14MM_v1.xlsx", sheet = 2, col_names = TRUE) # load GOF sheet
 
 # 3a. Create Spreadsheet -----------------------------------------------------
 
 hs.input <- hs.input %>%
-  dplyr::select(-"...1") %>% # select and remove the '...1' from the column names
+  dplyr::select(-`...1`) %>% # select and remove the '...1' from the column names
   combine_rows() %>% # run combine_rows function
   mutate(segment = Assign_segment(time)) # run Assign_segment function on the time column of hs.input; then mutate function takes output of assign_segment
 
