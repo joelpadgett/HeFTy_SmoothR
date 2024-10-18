@@ -32,7 +32,6 @@ and plotting of the data:
 path2myfile <- system.file('s14MM_v1.xlsx', package = 'HeFTy.SmoothR') # example data
 tT_paths <- read_hefty_xlsx(path2myfile)
 
-
  plot_path_density_filled(tT_paths) +
   labs(title = "TITLE HERE", x = "Time (Ma)", y = bquote("Temperature ("*degree*")")) +
   theme_bw() + 
@@ -42,7 +41,7 @@ tT_paths <- read_hefty_xlsx(path2myfile)
 ```
 The code produces the following image:
 
-<img src="man/figures/Fig11.jpg" width="864" />
+<img src="man/figures/Fig11_new.jpg" width="750" />
 
 ## Documentation
 The detailed documentation can be found at
