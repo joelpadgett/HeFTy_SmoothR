@@ -9,4 +9,4 @@ fname <- "inst/s14MM_v1.xlsx"
 # usethis::use_data(s14MM_v1_sheet2, overwrite = TRUE)
 
 s14MM_v1 <- read_hefty_xlsx(fname)
-usethis::use_data(s14MM_v1, overwrite = TRUE)
+usethis::use_data(s14MM_v1, overwrite = TRUE, compress = "xz")
