@@ -15,7 +15,6 @@
 #'
 #' @return ggplot
 #' @import ggplot2
-#' @import ggh4x
 #'
 #' @name plt_density
 #'
@@ -32,10 +31,7 @@ plot_path_density_filled <- function(x, bins = 50L, densify = TRUE, show.legend 
   if (densify) x <- densify_paths(x, ...)
 
   ggplot(data = x, aes(x = time, y = temperature)) +
-    geom_density2d_filled(contour_var = "ndensity", bins = bins, show.legend = show.legend) +
-    theme(
-      ggh4x.axis.ticks.length.minor = rel(1)
-    )
+    geom_density2d_filled(contour_var = "ndensity", bins = bins, show.legend = show.legend)
 }
 
 #' @rdname plt_density
@@ -45,8 +41,5 @@ plot_path_density <- function(x, bins = 50L, densify = TRUE, show.legend = NA, .
   if (densify) x <- densify_paths(x, ...)
 
   ggplot(data = x, aes(x = time, y = temperature)) +
-    geom_density2d(contour_var = "ndensity", bins = bins, show.legend = show.legend) +
-    theme(
-      ggh4x.axis.ticks.length.minor = rel(1)
-    )
+    geom_density2d(contour_var = "ndensity", bins = bins, show.legend = show.legend)
 }

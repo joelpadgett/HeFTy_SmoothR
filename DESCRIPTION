@@ -13,7 +13,6 @@ Depends:
     R (>= 4.1.0)
 Imports:
     dplyr,
-    ggh4x,
     ggplot2,
     magrittr,
     readxl,
