@@ -9,6 +9,7 @@
 #' @param samples integer. Number of random samples of the data. This number should
 #' be less or equal then the`nrow(x)`. Be aware that a large number will require
 #' a long(!) processing time. The default is `100`.
+#' @param replace logical. Should sampling be with replacement?
 #'
 #' @return data.frame
 #'
@@ -21,7 +22,7 @@
 #' @examples
 #' data(s14MM_v1)
 #' densify_paths(s14MM_v1)
-densify_paths <- function(x, GOF_rank = 10L, n = 10L, samples = 100L) {
+densify_paths <- function(x, GOF_rank = 10L, n = 10L, samples = 100L, replace = FALSE) {
   L1 <- L2 <- X <- Y <- numeric()
   segment <- time <- temperature <- NULL
 
@@ -33,12 +34,27 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, samples = 100L) {
 
   # Subset data by random N number of segments (If Desired)
 
-  subset_segments <- hs.input %>% # get unique segments
-    dplyr::distinct(segment) %>% # distinct() gets unique records from the desired field, segments
-    dplyr::slice_sample(n = samples) # Randomly select N unique segments
+  ## get unique segments
+  remaining_segments <- hs.input %>%
+    dplyr::distinct(segment) |> # distinct() gets unique records from the desired field, segments
+    dplyr::pull(segment)
+
+  if (replace) {
+    sample_size <- samples
+  } else {
+    sample_size <- min(samples, length(remaining_segments))
+  }
+
+  ## Randomly select N unique segments
+  subset_segments <- sample(remaining_segments,
+    size = sample_size,
+    replace = replace
+  )
+
+
 
   res <- hs.input %>% # filter the original data for the segments selected in unique_segments
-    dplyr::semi_join(hs.input, subset_segments, by = "segment") %>% # semi_join filters the original data to include only rows that match the selected segments
+    dplyr::filter(segment %in% subset_segments) %>% # include only rows that match the selected segments
     dplyr::mutate(x = time, y = temperature) %>%
     sf::st_as_sf(coords = c("x", "y")) %>% # make a spatial feature where x and y are the spatial coordinates
     dplyr::summarise(do_union = FALSE) %>%

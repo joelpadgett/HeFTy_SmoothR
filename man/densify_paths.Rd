@@ -4,7 +4,7 @@
 \alias{densify_paths}
 \title{Densify Paths}
 \usage{
-densify_paths(x, GOF_rank = 10L, n = 10L, samples = 100L)
+densify_paths(x, GOF_rank = 10L, n = 10L, samples = 100L, replace = FALSE)
 }
 \arguments{
 \item{x}{t-T and GOF data of the modeled paths. Out put of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
@@ -17,6 +17,8 @@ segment (between vertices). The default is 10.}
 \item{samples}{integer. Number of random samples of the data. This number should
 be less or equal then the\code{nrow(x)}. Be aware that a large number will require
 a long(!) processing time. The default is \code{100}.}
+
+\item{replace}{logical. Should sampling be with replacement?}
 }
 \value{
 data.frame
