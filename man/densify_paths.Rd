@@ -4,18 +4,20 @@
 \alias{densify_paths}
 \title{Densify Paths}
 \usage{
-densify_paths(x, GOF_rank = 10L, n = 10L, samples = 100L, replace = FALSE)
+densify_paths(x, GOF_rank = 10L, ..., samples = 100L, replace = FALSE)
 }
 \arguments{
-\item{x}{t-T and GOF data of the modeled paths. Out put of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
+\item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
 
-\item{GOF_rank}{numeric. Selects only the n highest GOF ranked paths.}
+\item{GOF_rank}{numeric. Selects only the \code{GOF_rank}-th highest GOF ranked paths.}
 
-\item{n}{integer. Adds \code{n} equally-spaced extra points along each path
-segment (between vertices). The default is 10.}
+\item{...}{arguments passed to \code{\link[smoothr:densify]{smoothr::densify()}}. \code{n} (integer) adds \code{n} (10 by
+default) equally-spaced extra points along each path
+segment (between vertices). Or you specify \code{max_distance} (numeric) to add
+points at a maximum distance of \code{max_distance} (in Myr) from each other.}
 
 \item{samples}{integer. Number of random samples of the data. This number should
-be less or equal then the\code{nrow(x)}. Be aware that a large number will require
+be less or equal then the \code{nrow(x)}. Be aware that a large number will require
 a long(!) processing time. The default is \code{100}.}
 
 \item{replace}{logical. Should sampling be with replacement?}
@@ -28,5 +30,6 @@ Adds extra points between the vertices of the path segments
 }
 \examples{
 data(s14MM_v1)
-densify_paths(s14MM_v1)
+densify_paths(s14MM_v1, n = 10)
+densify_paths(s14MM_v1, n = 10, max_distance = 1)
 }
