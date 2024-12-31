@@ -4,10 +4,11 @@
 #'
 #' @param x t-T and GOF data of the modeled paths. Output of [read_hefty_xlsx()].
 #' @param GOF_rank numeric. Selects only the `GOF_rank`-th highest GOF ranked paths.
-#' @param ... arguments passed to [smoothr::densify()]. `n` (integer) adds `n` (10 by
+#' @param n integer. Adds `n` (10 by
 #' default) equally-spaced extra points along each path
-#' segment (between vertices). Or you specify `max_distance` (numeric) to add
-#' points at a maximum distance of `max_distance` (in Myr) from each other.
+#' segment (between vertices).
+#' @param max_distance numeric. Adds points at a maximum distance of
+#' `max_distance` (in Myr) from each other. 1 by default.
 #' @param samples integer. Number of random samples of the data. This number should
 #' be less or equal then the `nrow(x)`. Be aware that a large number will require
 #' a long(!) processing time. The default is `100`.
@@ -23,9 +24,8 @@
 #'
 #' @examples
 #' data(s14MM_v1)
-#' densify_paths(s14MM_v1, n = 10)
-#' densify_paths(s14MM_v1, n = 10, max_distance = 1)
-densify_paths <- function(x, GOF_rank = 10L, ..., samples = 100L, replace = FALSE) {
+#' densify_paths(s14MM_v1)
+densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples = 100L, replace = FALSE) {
   L1 <- L2 <- X <- Y <- numeric()
   segment <- time <- temperature <- NULL
 
@@ -60,7 +60,7 @@ densify_paths <- function(x, GOF_rank = 10L, ..., samples = 100L, replace = FALS
     dplyr::summarise(do_union = FALSE) %>%
     sf::st_cast("LINESTRING") %>%
     # sf::st_cast("MULTILINESTRING") %>%
-    smoothr::densify(...) # this sets the number of points that will be added to each segment. This can be changed as desired
+    smoothr::densify(n = n, max_distance = max_distance) # this sets the number of points that will be added to each segment. This can be changed as desired
 
 
   res_coords <- sf::st_coordinates(res)
@@ -72,5 +72,5 @@ densify_paths <- function(x, GOF_rank = 10L, ..., samples = 100L, replace = FALS
     # dplyr::bind_cols(res, res_coords) %>%
     # sf::st_drop_geometry() %>%
     dplyr::rename(time = X, temperature = Y) %>%
-    dplyr::select(-L1, -L2)
+    dplyr::select(-dplyr::any_of(c('L1', 'L2')))
 }
