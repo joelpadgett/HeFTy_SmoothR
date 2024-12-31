@@ -23,8 +23,8 @@
 #' @export
 #'
 #' @examples
-#' data(s14MM_v1)
-#' densify_paths(s14MM_v1)
+#' data(tT_paths)
+#' densify_paths(tT_paths)
 densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples = 100L, replace = FALSE) {
   L1 <- L2 <- X <- Y <- numeric()
   segment <- time <- temperature <- NULL

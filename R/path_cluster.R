@@ -18,10 +18,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' data(s14MM_v1)
-#' cluster_paths(s14MM_v1, ncluster = 3)
+#' data(tT_paths)
+#' cluster_paths(tT_paths, ncluster = 3)
 #' }
 cluster_paths <- function(x, ncluster, dist = c("Hausdorff", "Frechet", "Euclidean")) {
+  segment <- NULL
   x_lines <- x |>
     sf::st_as_sf(coords = c("time", "temperature")) |>
     dplyr::group_by(segment) |>

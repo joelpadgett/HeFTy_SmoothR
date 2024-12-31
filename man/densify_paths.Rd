@@ -38,6 +38,6 @@ data.frame
 Adds extra points between the vertices of the path segments
 }
 \examples{
-data(s14MM_v1)
-densify_paths(s14MM_v1)
+data(tT_paths)
+densify_paths(tT_paths)
 }

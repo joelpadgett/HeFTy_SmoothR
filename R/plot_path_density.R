@@ -19,9 +19,9 @@
 #' @name plt_density
 #'
 #' @examples
-#' data(s14MM_v1)
-#' plot_path_density(s14MM_v1)
-#' plot_path_density_filled(s14MM_v1)
+#' data(tT_paths)
+#' plot_path_density(tT_paths)
+#' plot_path_density_filled(tT_paths)
 NULL
 
 #' @rdname plt_density

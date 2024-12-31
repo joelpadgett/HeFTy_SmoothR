@@ -24,7 +24,7 @@ between paths.
 }
 \examples{
 \dontrun{
-data(s14MM_v1)
-cluster_paths(s14MM_v1, ncluster = 3)
+data(tT_paths)
+cluster_paths(tT_paths, ncluster = 3)
 }
 }
