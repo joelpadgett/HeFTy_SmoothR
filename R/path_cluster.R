@@ -35,4 +35,3 @@ cluster_paths <- function(x, ncluster, dist = c("Hausdorff", "Frechet", "Euclide
   cl <- stats::hclust(stats::as.dist(dmat))
   dplyr::tibble(segment = x_lines$segment, cluster = as.factor(stats::cutree(cl, ncluster)))
 }
-

@@ -17,10 +17,17 @@ You must have R installed on your system (see <http://r-project.org>).
 To install `HeFTy.SmoothR` from CRAN, type the following code at the R
 command line prompt:
 
+``` r
+# install.packages("remotes") # install if needed
+remotes::install_github("padgett/HeFTy_SmoothR")
+```
+
 The requirements for the import data are described in the detailed
 walkthrough in the vignette:
 
-    #> no vignettes found
+``` r
+vignette(package = "HeFTy.SmoothR")
+```
 
 The following code provides a minimal working example to demonstrate the
 import and plotting of the data:
@@ -53,7 +60,9 @@ plot_path_density_filled(tT_paths) +
 
 The detailed documentation can be found at
 
-    #> no vignettes found
+``` r
+vignette(package = "HeFTy.SmoothR")
+```
 
 ## Authors
 

@@ -72,5 +72,5 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
     # dplyr::bind_cols(res, res_coords) %>%
     # sf::st_drop_geometry() %>%
     dplyr::rename(time = X, temperature = Y) %>%
-    dplyr::select(-dplyr::any_of(c('L1', 'L2')))
+    dplyr::select(-dplyr::any_of(c("L1", "L2")))
 }

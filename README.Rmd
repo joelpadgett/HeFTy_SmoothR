@@ -27,13 +27,13 @@ Padgett et al. (accepted) and Johns-Buss et al. (submitted).
 You must have R installed on your system (see http://r-project.org). To install 
 `HeFTy.SmoothR` from CRAN, type the following code at the R command line prompt:
 
-```{r echo=FALSE, eval=FALSE}
+```{r echo=TRUE, eval=FALSE}
 # install.packages("remotes") # install if needed
-remotes::install_github('padgett/HeFTy_SmoothR')
+remotes::install_github("padgett/HeFTy_SmoothR")
 ```
 
 The requirements for the import data are described in the detailed walkthrough in the vignette:
-```{r echo=FALSE}
+```{r echo=TRUE, eval=FALSE}
 vignette(package = "HeFTy.SmoothR")
 ```
 
@@ -66,7 +66,7 @@ plot_path_density_filled(tT_paths) +
 ## Documentation
 The detailed documentation can be found at
 
-```{r echo=FALSE}
+```{r echo=TRUE, eval=FALSE}
 vignette(package = "HeFTy.SmoothR")
 ```
 

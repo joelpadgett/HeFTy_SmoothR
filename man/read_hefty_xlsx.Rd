@@ -7,7 +7,7 @@
 read_hefty_xlsx(fname)
 }
 \arguments{
-\item{fname}{path to the excel spreadsheet that contains the HeFTy out pouts, i.e. the t-T-paths in sheet 1 and the GOF values in sheet 2}
+\item{fname}{path to the excel spreadsheet that contains the HeFTy outputs, i.e. the t-T-paths in sheet 1 and the GOF values in sheet 2}
 }
 \value{
 \code{data.frame} of the combined data

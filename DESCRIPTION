@@ -23,6 +23,7 @@ Suggests:
     rmarkdown,
     roxygen2,
     scico,
+    spelling,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr

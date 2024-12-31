@@ -31,7 +31,7 @@ assign_segment <- function(x) { # create new function called assign_segment
 
 #' Read time, temperature and GOF data from HeFTy output from excel file
 #'
-#' @param fname path to the excel spreadsheet that contains the HeFTy out pouts, i.e. the t-T-paths in sheet 1 and the GOF values in sheet 2
+#' @param fname path to the excel spreadsheet that contains the HeFTy outputs, i.e. the t-T-paths in sheet 1 and the GOF values in sheet 2
 #'
 #' @return `data.frame` of the combined data
 #'
