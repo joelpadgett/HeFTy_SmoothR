@@ -35,7 +35,7 @@ remotes::install_github("tobiste/HeFTy.SmoothR")
 The format requirements for the import data are described in the detailed 
 walkthrough:
 ```{r echo=TRUE, eval=FALSE}
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 The following code provides a minimal working example to demonstrate the import 
@@ -68,7 +68,7 @@ plot_path_density_filled(tT_paths) +
 The detailed documentation can be found at
 
 ```{r echo=TRUE, eval=FALSE}
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 ## Authors

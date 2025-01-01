@@ -26,7 +26,7 @@ The format requirements for the import data are described in the
 detailed walkthrough:
 
 ``` r
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 The following code provides a minimal working example to demonstrate the
@@ -61,7 +61,7 @@ plot_path_density_filled(tT_paths) +
 The detailed documentation can be found at
 
 ``` r
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 ## Authors

@@ -6,7 +6,7 @@ Authors@R: c(
     person("Tobias", "Stephan", , "tobias.stephan1@yahoo.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9290-014X"))
   )
-Description: Creates density plots for HeFTy modelled time-temperature
+Description: Creates density plots for HeFTy-modeled time-temperature
     cooling paths.
 License: MIT + file LICENSE
 Depends: 
@@ -14,16 +14,16 @@ Depends:
 Imports:
     cluster (>= 2.1.4),
     dplyr (>= 1.1.4),
-    ggplot2 (>3.5.1),
+    ggplot2 (>= 3.5.1),
     magrittr (>= 2.0.3),
     readxl  (>= 1.4.3),
     sf (>= 1.0-16),
-    smoothr (>= 1.0.1),
+    smoothr (>= 1.0.1)
 Suggests: 
     knitr,
     rmarkdown,
     roxygen2,
-    scico,
+    scico (>= 1.5.0),
     spelling,
     testthat (>= 3.0.0)
 VignetteBuilder: 
