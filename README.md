@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# HeFTy_SmoothR
+# HeFTy.SmoothR
 
 <!-- badges: start -->
 
@@ -19,7 +19,7 @@ command line prompt:
 
 ``` r
 # install.packages("remotes") # install if needed
-remotes::install_github("padgett/HeFTy_SmoothR")
+remotes::install_github("tobiste/HeFTy.SmoothR")
 ```
 
 The format requirements for the import data are described in the

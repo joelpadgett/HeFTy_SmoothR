@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# HeFTy_SmoothR
+# HeFTy.SmoothR
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/joelpadgett/HeFTy_SmoothR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/joelpadgett/HeFTy_SmoothR/actions/workflows/R-CMD-check.yaml)
@@ -29,7 +29,7 @@ You must have R installed on your system (see http://r-project.org). To install
 
 ```{r echo=TRUE, eval=FALSE}
 # install.packages("remotes") # install if needed
-remotes::install_github("padgett/HeFTy_SmoothR")
+remotes::install_github("tobiste/HeFTy.SmoothR")
 ```
 
 The format requirements for the import data are described in the detailed 
