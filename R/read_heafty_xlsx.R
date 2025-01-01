@@ -36,7 +36,7 @@ assign_segment <- function(x) { # create new function called assign_segment
 #' @return `data.frame` of the combined data
 #'
 #' @importFrom readxl read_xlsx
-#' @importFrom dplyr mutate
+#' @importFrom dplyr mutate as_tibble between case_when
 #' @export
 #'
 #' @examples
@@ -52,5 +52,16 @@ read_hefty_xlsx <- function(fname) {
     combine_rows() %>% # run combine_rows function
     dplyr::mutate(segment = assign_segment(time)) # run Assign_segment function on the time column of hs.input; then mutate function takes output of assign_segment
 
-  merge(hs.input, GOF, by = "segment")
+  merge(hs.input, GOF, by = "segment") |>
+    dplyr::as_tibble() |>
+    dplyr::mutate(
+      segment = as.factor(segment),
+      Fit = dplyr::case_when(
+        Comp_GOF >= 0.9 ~ 'Best',
+        dplyr::between(Comp_GOF,0.5, 0.9) ~ "Good",
+        dplyr::between(Comp_GOF, 0.05, .5) ~ "Acceptable",
+        .default = NA
+      ),
+      Fit = factor(Fit, levels = c(NA, "Acceptable", "Good", "Best"))
+    )
 }

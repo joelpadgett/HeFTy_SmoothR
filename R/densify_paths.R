@@ -4,6 +4,7 @@
 #'
 #' @param x t-T and GOF data of the modeled paths. Output of [read_hefty_xlsx()].
 #' @param GOF_rank numeric. Selects only the `GOF_rank`-th highest GOF ranked paths.
+#' If all GOFs should be used, set to `Inf`. Default is `10`.
 #' @param n integer. Adds `n` (10 by
 #' default) equally-spaced extra points along each path
 #' segment (between vertices).

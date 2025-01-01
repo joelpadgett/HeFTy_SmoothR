@@ -16,7 +16,8 @@ densify_paths(
 \arguments{
 \item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
 
-\item{GOF_rank}{numeric. Selects only the \code{GOF_rank}-th highest GOF ranked paths.}
+\item{GOF_rank}{numeric. Selects only the \code{GOF_rank}-th highest GOF ranked paths.
+If all GOFs should be used, set to \code{Inf}. Default is \code{10}.}
 
 \item{n}{integer. Adds \code{n} (10 by
 default) equally-spaced extra points along each path

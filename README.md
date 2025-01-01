@@ -22,8 +22,8 @@ command line prompt:
 remotes::install_github("padgett/HeFTy_SmoothR")
 ```
 
-The requirements for the import data are described in the detailed
-walkthrough in the vignette:
+The format requirements for the import data are described in the
+detailed walkthrough:
 
 ``` r
 vignette(package = "HeFTy.SmoothR")
@@ -42,7 +42,7 @@ tT_paths <- read_hefty_xlsx(path2myfile)
 
 plot_path_density_filled(tT_paths) +
   labs(
-    title = "Kerndel density of t-T paths",
+    title = "Kernel density of t-T paths",
     caption = "data from Padgett et al. (accepted)",
     x = "Time (Ma)",
     y = bquote("Temperature (" * degree * ")")
@@ -76,13 +76,13 @@ If you use this package in your research, please cite the following:
 
 Padgett, J., Enkelmann, E., Kellett, D., Moynihan, D., and Stephan, T.
 “Cenozoic exhumation and fault reactivation in southeastern Yukon
-constrained by low-temperature thermochronology’. accepted for
+constrained by low-temperature thermochronology”. accepted for
 publication in *Canadian Journal of Earth Sciences*. DOI:
 10.1139/cjes-2024-0147.
 
 ## Feedback, issues, and contributions
 
-I welcome feedback, suggestions, issues, and contributions! If you have
+We welcome feedback, suggestions, issues, and contributions! If you have
 found a bug, please file it
 [here](https://github.com/padgett/HeFTy_SmoothR/issues) with minimal
 code to reproduce the issue.
