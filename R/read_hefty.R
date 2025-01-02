@@ -55,7 +55,7 @@ assign_segment <- function(x) { # create new function called assign_segment
 #' path2myfile <- system.file("s14MM_v1.xlsx", package = "HeFTy.SmoothR")
 #' read_hefty_xlsx(path2myfile)
 read_hefty_xlsx <- function(fname) {
-  time <- NULL
+  Fit <- time <- NULL
 
   x <- readxl::read_xlsx(fname, sheet = 1, col_names = FALSE) # load t-T data
   GOF <- readxl::read_xlsx(fname, sheet = 2, col_names = TRUE) # load GOF sheet
@@ -90,6 +90,7 @@ read_hefty_xlsx <- function(fname) {
 #' @importFrom dplyr mutate as_tibble between case_when row_number right_join select rename across everything join_by matches
 #' @export
 read_hefty <- function(fname) {
+  Fit <- value <- Comp_GOF <- time <- segment <- temperature <- V1 <- V2 <- V3 <- V4 <- V5 <- constraint <- NULL
   file <- readLines(fname) |>
     strsplit("\t")
 
@@ -128,7 +129,7 @@ read_hefty <- function(fname) {
   wm <- file[wm_path_loc + c(1, 2)] %>%
     do.call(rbind, .) |>
     t() |>
-    tail(-1) |>
+    utils::tail(-1) |>
     as_tibble() |>
     rename(time = V1, temperature = V2) |>
     mutate(across(everything(), as.numeric))
@@ -139,7 +140,7 @@ read_hefty <- function(fname) {
     do.call(rbind, .)
 
   constraints <- constr1[, 1:5] |>
-    tail(-1) |>
+    utils::tail(-1) |>
     as_tibble() |>
     rename("constraint" = V1, "max_time" = V2, "min_time" = V3, "max_temp" = V4, "min_temp" = V5) |>
     mutate(across(everything(), as.numeric),
@@ -150,7 +151,7 @@ read_hefty <- function(fname) {
   grain_summary <- file[summaries_loc:(wm_path_loc - 1)] %>%
     do.call(rbind, .) |>
     t() |>
-    tail(-1) |>
+    utils::tail(-1) |>
     as_tibble() |>
     rename("grain" = V1, "mean" = V2, sd = V3, min = V4, max = V5) |>
     mutate(across(!matches("grain"), as.numeric))

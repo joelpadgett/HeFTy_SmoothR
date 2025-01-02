@@ -95,6 +95,7 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
 #' densify_cluster()
 #' }
 densify_cluster <- function(x){
+  time <- temperature <- segment <- cluster <- NULL
   x %>%
     split(.$cluster, drop = TRUE) %>%
     lapply(densify_paths, GOF_rank = Inf, samples = 500, replace = TRUE, max_distance = 1) %>%

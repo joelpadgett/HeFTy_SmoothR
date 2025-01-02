@@ -11,18 +11,19 @@
 #' data(tT_paths)
 #' path_statistics(tT_paths)
 path_statistics <- function(x){
+  bins <- time <- temperature <- NULL
   dplyr::mutate(x,
          bins = cut(time, breaks = 50)) |>
     dplyr::group_by(bins, .add = TRUE) |>
     dplyr::summarise(
       time_min = min(time),
-      time_median = median(time, na.rm = TRUE),
+      time_median = stats::median(time, na.rm = TRUE),
       time_max = max(time),
-      temp_sd = sd(temperature, na.rm = TRUE),
-      temp_IQR = IQR(temperature, na.rm = TRUE),
-      temp_median = median(temperature),
-      temp_5 = quantile(temperature, probs = .05),
-      temp_95 = quantile(temperature, probs = .95),
+      temp_sd = stats::sd(temperature, na.rm = TRUE),
+      temp_IQR = stats::IQR(temperature, na.rm = TRUE),
+      temp_median = stats::median(temperature),
+      temp_5 = stats::quantile(temperature, probs = .05),
+      temp_95 = stats::quantile(temperature, probs = .95),
       temp_max = min(temperature),
       temp_min = max(temperature),
       .groups = "keep"
