@@ -15,8 +15,9 @@ Imports:
     cluster (>= 2.1.4),
     dplyr (>= 1.1.4),
     ggplot2 (>= 3.5.1),
+    lifecycle,
     magrittr (>= 2.0.3),
-    readxl  (>= 1.4.3),
+    readxl (>= 1.4.3),
     sf (>= 1.0-16),
     smoothr (>= 1.0.1)
 Suggests: 
