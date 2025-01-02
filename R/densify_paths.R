@@ -2,7 +2,7 @@
 #'
 #' Adds extra points between the vertices of the path segments
 #'
-#' @param x t-T and GOF data of the modeled paths. Output of [read_hefty_xlsx()].
+#' @param x t-T and GOF data of the modeled paths. Output of [read_hefty()].
 #' @param GOF_rank numeric. Selects only the `GOF_rank`-th highest GOF ranked paths.
 #' If all GOFs should be used, set to `Inf`. Default is `10`.
 #' @param n integer. Adds `n` (10 by
@@ -75,3 +75,35 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
     dplyr::rename(time = X, temperature = Y) %>%
     dplyr::select(-dplyr::any_of(c("L1", "L2")))
 }
+
+#' Densify clustered paths
+#'
+#' @param x clustered t-T paths. Output of [cluster_paths()].
+#'
+#' @return tibble
+#' @export
+#'
+#' @importFrom dplyr group_by left_join distinct select join_by
+#'
+#' @examples
+#' \dontrun{
+#' data(tT_paths)
+#' tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
+#' cluster_paths(tT_paths_subset, cluster = 3) |>
+#' merge(tT_paths_subset, by = 'segment') |>
+#' dplyr::group_by(cluster) |>
+#' densify_cluster()
+#' }
+densify_cluster <- function(x){
+  x %>%
+    split(.$cluster, drop = TRUE) %>%
+    lapply(densify_paths, GOF_rank = Inf, samples = 500, replace = TRUE, max_distance = 1) %>%
+    do.call(rbind, .) |>
+    dplyr::left_join(
+      dplyr::select(x, -time, -temperature) |> dplyr::distinct(),
+      dplyr::join_by(segment),
+      relationship = "many-to-many"
+    ) |>
+    dplyr::group_by(cluster)
+}
+

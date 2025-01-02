@@ -3,7 +3,7 @@
 #' Hierarchical clustering of t-T paths based on the Hausdorff distance
 #' between paths.
 #'
-#' @param x t-T and GOF data of the modeled paths. Output of [read_hefty_xlsx()].
+#' @param x t-T and GOF data of the modeled paths. Output of [read_hefty()].
 #' @param cluster an integer scalar or vector with the desired number of groups
 #' @param dist character; algorithm to calculate a dissimilarity matrix
 #' (distance) for lines; one of `Euclidean`, `Hausdorff` (the default) or
@@ -24,7 +24,8 @@
 #' @examples
 #' \dontrun{
 #' data(tT_paths)
-#' cluster_paths(tT_paths, cluster = 3)
+#' tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
+#' cluster_paths(tT_paths_subset, cluster = 3)
 #' }
 cluster_paths <- function(x, cluster, dist = c("Hausdorff", "Frechet", "Euclidean"), method = c("hclust", "kmeans", 'pam'), ...) {
   segment <- NULL

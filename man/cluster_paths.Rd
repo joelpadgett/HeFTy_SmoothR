@@ -13,7 +13,7 @@ cluster_paths(
 )
 }
 \arguments{
-\item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
+\item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty]{read_hefty()}}.}
 
 \item{cluster}{an integer scalar or vector with the desired number of groups}
 
@@ -37,6 +37,7 @@ between paths.
 \examples{
 \dontrun{
 data(tT_paths)
-cluster_paths(tT_paths, cluster = 3)
+tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
+cluster_paths(tT_paths_subset, cluster = 3)
 }
 }
