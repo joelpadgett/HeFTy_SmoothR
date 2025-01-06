@@ -134,7 +134,7 @@ colors, and reverse the axes:
 
 ```{r plot3, out.width="100%"}
 plot2 +
-  labs(title = "TITLE HERE", x = "Time (Ma)", y = bquote("Temperature (" * degree * ")")) + # type title of plot and put in double quotes
+  labs(title = "TITLE HERE", x = "Time (Ma)", y = bquote("Temperature (" * degree * "C)")) + # type title of plot and put in double quotes
   theme_classic() + # sets a ggplot theme
   expand_limits(y=0, x = 0) + # set the limits of the plot
   coord_cartesian(expand = FALSE) + #

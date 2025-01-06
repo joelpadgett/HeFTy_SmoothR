@@ -14,6 +14,7 @@ Depends:
 Imports:
     cluster (>= 2.1.4),
     dplyr (>= 1.1.4),
+    forcats,
     ggplot2 (>= 3.5.1),
     lifecycle,
     magrittr (>= 2.0.3),

@@ -20,6 +20,7 @@
 #' @importFrom dplyr summarise group_by tibble
 #' @importFrom stats hclust cutree as.dist kmeans
 #' @importFrom cluster pam
+#' @importFrom forcats as_factor
 #'
 #' @examples
 #' \dontrun{
@@ -49,5 +50,5 @@ cluster_paths <- function(x, cluster, dist = c("Hausdorff", "Frechet", "Euclidea
     cl <- cluster::pam(dmat, k = cluster, ...)$clustering
   }
 
-  dplyr::tibble(segment = x_lines$segment, cluster = as.factor(cl))
+  dplyr::tibble(segment = x_lines$segment, cluster = forcats::as_factor(cl))
 }

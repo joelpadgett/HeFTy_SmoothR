@@ -45,7 +45,7 @@ plot_path_density_filled(tT_paths) +
     title = "Kernel density of t-T paths",
     caption = "data from Padgett et al. (accepted)",
     x = "Time (Ma)",
-    y = bquote("Temperature (" * degree * ")")
+    y = bquote("Temperature (" * degree * "C)")
   ) +
   theme_classic() +
   coord_cartesian(expand = FALSE) +

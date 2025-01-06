@@ -23,7 +23,7 @@ assign_segment <- function(x) { # create new function called assign_segment
       segment[i] <- segment[i - 1] + 1L # take the segment value from the position before it, add one, and give that position the new segment value
     }
   }
-  return(as.factor(segment)) # return the output of segment as a factor (this is easier for ggplot according to Tobi)
+  return(forcats::as_factor(segment)) # return the output of segment as a factor (this is easier for ggplot according to Tobi)
 }
 
 
@@ -45,6 +45,7 @@ assign_segment <- function(x) { # create new function called assign_segment
 #' @return `data.frame` of the combined data
 #'
 #' @importFrom readxl read_xlsx
+#' @importFrom forcats fct fct_reorder as_factor
 #' @importFrom dplyr mutate as_tibble between case_when
 #'
 #' @seealso [read_hefty()]
@@ -73,8 +74,10 @@ read_hefty_xlsx <- function(fname) {
         dplyr::between(Comp_GOF, 0.05, .5) ~ "Acceptable",
         .default = NA
       ),
-      Fit = factor(Fit, levels = c(NA, "Acceptable", "Good", "Best"))
-    )
+      Fit = forcats::fct(Fit, levels = c(NA, "Acceptable", "Good", "Best"))
+    ) |>
+    dplyr::arrange(Fit, Comp_GOF) |>
+    dplyr::mutate(segment = forcats::fct_reorder(segment, Comp_GOF))
 }
 
 #' Import inverse thermal history model
@@ -88,6 +91,8 @@ read_hefty_xlsx <- function(fname) {
 #' path and the grain summary statistics.
 #'
 #' @importFrom dplyr mutate as_tibble between case_when row_number right_join select rename across everything join_by matches
+#' @importFrom forcats fct fct_reorder as_factor
+#'
 #' @export
 read_hefty <- function(fname) {
   Fit <- value <- Comp_GOF <- time <- segment <- temperature <- V1 <- V2 <- V3 <- V4 <- V5 <- constraint <- NULL
@@ -106,14 +111,14 @@ read_hefty <- function(fname) {
     rename(Comp_GOF = value) |>
     mutate(
       Comp_GOF = as.numeric(Comp_GOF),
-      segment = as.factor(dplyr::row_number()),
+      segment = forcats::as_factor(dplyr::row_number()),
       Fit = dplyr::case_when(
         Comp_GOF >= 0.9 ~ "Best",
         dplyr::between(Comp_GOF, 0.5, 0.9) ~ "Good",
         dplyr::between(Comp_GOF, 0.05, .5) ~ "Acceptable",
         .default = NA
       ),
-      Fit = factor(Fit, levels = c(NA, "Acceptable", "Good", "Best"))
+      Fit = forcats::fct(Fit, levels = c(NA, "Acceptable", "Good", "Best"))
     )
 
   paths <- individual_paths_mat[, 7:ncol(individual_paths_mat)] |>
@@ -122,6 +127,8 @@ read_hefty <- function(fname) {
     mutate(segment = assign_segment(time)) |>
     dplyr::right_join(GOF, dplyr::join_by(segment)) |>
     dplyr::select(segment, time, temperature, Fit, Comp_GOF) |>
+    dplyr::arrange(Fit, Comp_GOF) |>
+    dplyr::mutate(segment = forcats::fct_reorder(segment, Comp_GOF)) |>
     as_tibble()
 
   # extract weighted mean path
@@ -144,7 +151,7 @@ read_hefty <- function(fname) {
     as_tibble() |>
     rename("constraint" = V1, "max_time" = V2, "min_time" = V3, "max_temp" = V4, "min_temp" = V5) |>
     mutate(across(everything(), as.numeric),
-      constraint = as.factor(constraint)
+      constraint = forcats::as_factor(constraint)
     )
 
   summaries_loc <- grep("Summaries", file)
