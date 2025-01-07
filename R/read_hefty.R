@@ -94,10 +94,19 @@ read_hefty_xlsx <- function(fname) {
 #' @importFrom forcats fct fct_reorder as_factor
 #'
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' fname  <- "C:/Users/tstephan/Downloads/112-9-30-zr-inv.txt"
+#' read_hefty(fname)
+#'
+#' fname <- "C:/Users/tstephan/Downloads/112-74_50_H3_50-inv.txt"
+#' read_hefty(fname)
+#' }
 read_hefty <- function(fname) {
   Fit <- value <- Comp_GOF <- time <- segment <- temperature <- V1 <- V2 <- V3 <- V4 <- V5 <- constraint <- NULL
   file <- readLines(fname) |>
-    strsplit("\t")
+    strsplit("\t", useBytes = TRUE)
 
   # extract individual paths
   individual_paths_loc <- grep("Individual paths", file)
@@ -121,9 +130,11 @@ read_hefty <- function(fname) {
       Fit = forcats::fct(Fit, levels = c(NA, "Acceptable", "Good", "Best"))
     )
 
-  paths <- individual_paths_mat[, 7:ncol(individual_paths_mat)] |>
+  time_loc <- grep('Time', individual_paths_mat[1, ]) + 1
+  paths <- individual_paths_mat[, time_loc:ncol(individual_paths_mat)] |>
     as_tibble() |>
     combine_rows() |>
+    # dplyr::filter(!is.na(time) & !is.na(temperature)) |>
     mutate(segment = assign_segment(time)) |>
     dplyr::right_join(GOF, dplyr::join_by(segment)) |>
     dplyr::select(segment, time, temperature, Fit, Comp_GOF) |>
@@ -142,7 +153,7 @@ read_hefty <- function(fname) {
     mutate(across(everything(), as.numeric))
 
   # extract constraints
-  inversion_terminated_loc <- grep("Inversion terminated before completion", file)
+  inversion_terminated_loc <- grep("Inversion", file)
   constr1 <- file[3:inversion_terminated_loc - 1] %>%
     do.call(rbind, .)
 

@@ -17,3 +17,13 @@ path and the grain summary statistics.
 Read time, temperature and GOF data of modeled thermal history paths out of
 HeFTy output .txt file
 }
+\examples{
+\dontrun{
+
+fname  <- "C:/Users/tstephan/Downloads/112-9-30-zr-inv.txt"
+read_hefty(fname)
+
+fname <- "C:/Users/tstephan/Downloads/112-74_50_H3_50-inv.txt"
+read_hefty(fname)
+}
+}
