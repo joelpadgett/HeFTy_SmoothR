@@ -20,8 +20,8 @@ Densify clustered paths
 data(tT_paths)
 tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
 cluster_paths(tT_paths_subset, cluster = 3) |>
-merge(tT_paths_subset, by = 'segment') |>
-dplyr::group_by(cluster) |>
-densify_cluster()
+  merge(tT_paths_subset, by = "segment") |>
+  dplyr::group_by(cluster) |>
+  densify_cluster()
 }
 }

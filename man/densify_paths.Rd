@@ -26,17 +26,29 @@ segment (between vertices).}
 \item{max_distance}{numeric. Adds points at a maximum distance of
 \code{max_distance} (in Myr) from each other. 1 by default.}
 
-\item{samples}{integer. Number of random samples of the data. This number should
-be less or equal then the \code{nrow(x)}. Be aware that a large number will require
-a long(!) processing time. The default is \code{100}.}
+\item{samples}{integer or character. Number of random samples of the data.
+This number should be less or equal then the amount of paths.
+The default is \code{100}. Paths will be randomly selected \strong{after} the data has
+been filtered by the \code{GOF_rank()}.
+Optional, set \code{samples} to \code{'all'} considers all paths ignoring the \code{GOF_rank()} filter
+(this sets \code{GOF} to \code{Inf}). Set \code{samples} to \code{GOF} to consider all paths
+after the \code{GOF_rank} filter.}
 
 \item{replace}{logical. Should sampling be with replacement?}
 }
 \value{
-data.frame
+tibble
 }
 \description{
 Adds extra points between the vertices of the path segments
+}
+\note{
+A large sample number \code{n} will require a long(!)
+processing time for this function and subsequent methods such as
+\code{\link[=plot_path_density]{plot_path_density()}} or \code{\link[=path_cluster]{path_cluster()}}.
+
+If only paths within a specified GOF range should e desnified, create a
+subset of the data beforehand using either \code{\link[=subset]{subset()}} or \code{\link[dplyr:filter]{dplyr::filter()}}.
 }
 \examples{
 data(tT_paths)

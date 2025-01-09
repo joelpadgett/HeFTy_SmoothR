@@ -2,7 +2,7 @@
 % Please edit documentation in R/path_cluster.R
 \name{cluster_paths}
 \alias{cluster_paths}
-\title{Cluster t-T paths}
+\title{Cluster thermal histories}
 \usage{
 cluster_paths(
   x,
@@ -31,7 +31,7 @@ or \code{"pam"} (for \code{\link[cluster:pam]{cluster::pam()}}.}
 a tibble with the path \code{segment} (integer) and \code{cluster} (factor)
 }
 \description{
-Hierarchical clustering of t-T paths based on the Hausdorff distance
+Groups t-T paths into "path families" based on the \emph{Hausdorff distance}
 between paths.
 }
 \examples{

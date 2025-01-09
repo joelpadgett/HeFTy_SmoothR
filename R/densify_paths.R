@@ -10,12 +10,23 @@
 #' segment (between vertices).
 #' @param max_distance numeric. Adds points at a maximum distance of
 #' `max_distance` (in Myr) from each other. 1 by default.
-#' @param samples integer. Number of random samples of the data. This number should
-#' be less or equal then the `nrow(x)`. Be aware that a large number will require
-#' a long(!) processing time. The default is `100`.
+#' @param samples integer or character. Number of random samples of the data.
+#' This number should be less or equal then the amount of paths.
+#' The default is `100`. Paths will be randomly selected **after** the data has
+#' been filtered by the `GOF_rank()`.
+#' Optional, set `samples` to `'all'` considers all paths ignoring the `GOF_rank()` filter
+#' (this sets `GOF` to `Inf`). Set `samples` to `GOF` to consider all paths
+#' after the `GOF_rank` filter.
 #' @param replace logical. Should sampling be with replacement?
 #'
-#' @return data.frame
+#' @note A large sample number `n` will require a long(!)
+#' processing time for this function and subsequent methods such as
+#' [plot_path_density()] or [path_cluster()].
+#'
+#' If only paths within a specified GOF range should e desnified, create a
+#' subset of the data beforehand using either [subset()] or [dplyr::filter()].
+#'
+#' @return tibble
 #'
 #' @importFrom sf st_as_sf st_cast st_drop_geometry st_coordinates
 #' @importFrom smoothr densify
@@ -30,6 +41,13 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
   L1 <- L2 <- X <- Y <- numeric()
   segment <- time <- temperature <- NULL
 
+  stopifnot(is.numeric(samples) | samples %in% c("all", "GOF"))
+  if (samples == "all") {
+    GOF_rank <- Inf
+    samples <- "GOF"
+  }
+
+
   # Subset Data by Highest N GOF Values (If Desired)
   x$rank <- dplyr::dense_rank(-x$Comp_GOF) # Rank Comp_GOF values with lowest rank (1) being highest GOF value
   hs.input <- dplyr::filter(x, rank <= GOF_rank) # Remove all t-T points with rank greater than N; new table shows top N GOF t-T points
@@ -40,6 +58,10 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
   remaining_segments <- hs.input %>%
     dplyr::distinct(segment) |> # distinct() gets unique records from the desired field, segments
     dplyr::pull(segment)
+
+
+  if (samples == "GOF") samples <- length(remaining_segments)
+  if (!is.integer(samples)) as.integer(samples)
 
   if (replace) {
     sample_size <- samples
@@ -60,7 +82,6 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
     dplyr::group_by(segment) %>%
     dplyr::summarise(do_union = FALSE) %>%
     sf::st_cast("LINESTRING") %>%
-    # sf::st_cast("MULTILINESTRING") %>%
     smoothr::densify(n = n, max_distance = max_distance) # this sets the number of points that will be added to each segment. This can be changed as desired
 
 
@@ -70,8 +91,6 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
   res_coords |>
     dplyr::as_tibble() |>
     dplyr::left_join(lookup, dplyr::join_by(L1)) |>
-    # dplyr::bind_cols(res, res_coords) %>%
-    # sf::st_drop_geometry() %>%
     dplyr::rename(time = X, temperature = Y) %>%
     dplyr::select(-dplyr::any_of(c("L1", "L2")))
 }
@@ -90,11 +109,11 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
 #' data(tT_paths)
 #' tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
 #' cluster_paths(tT_paths_subset, cluster = 3) |>
-#' merge(tT_paths_subset, by = 'segment') |>
-#' dplyr::group_by(cluster) |>
-#' densify_cluster()
+#'   merge(tT_paths_subset, by = "segment") |>
+#'   dplyr::group_by(cluster) |>
+#'   densify_cluster()
 #' }
-densify_cluster <- function(x){
+densify_cluster <- function(x) {
   time <- temperature <- segment <- cluster <- NULL
   x %>%
     split(.$cluster, drop = TRUE) %>%
@@ -107,4 +126,3 @@ densify_cluster <- function(x){
     ) |>
     dplyr::group_by(cluster)
 }
-

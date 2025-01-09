@@ -1,6 +1,6 @@
-#' Cluster t-T paths
+#' Cluster thermal histories
 #'
-#' Hierarchical clustering of t-T paths based on the Hausdorff distance
+#' Groups t-T paths into "path families" based on the *Hausdorff distance*
 #' between paths.
 #'
 #' @param x t-T and GOF data of the modeled paths. Output of [read_hefty()].
