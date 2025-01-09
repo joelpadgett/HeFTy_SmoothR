@@ -2,7 +2,7 @@
 % Please edit documentation in R/path_cluster.R
 \name{cluster_paths}
 \alias{cluster_paths}
-\title{Cluster t-T paths}
+\title{Cluster thermal histories}
 \usage{
 cluster_paths(
   x,
@@ -13,7 +13,7 @@ cluster_paths(
 )
 }
 \arguments{
-\item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
+\item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty]{read_hefty()}}.}
 
 \item{cluster}{an integer scalar or vector with the desired number of groups}
 
@@ -31,12 +31,13 @@ or \code{"pam"} (for \code{\link[cluster:pam]{cluster::pam()}}.}
 a tibble with the path \code{segment} (integer) and \code{cluster} (factor)
 }
 \description{
-Hierarchical clustering of t-T paths based on the Hausdorff distance
+Groups t-T paths into "path families" based on the \emph{Hausdorff distance}
 between paths.
 }
 \examples{
 \dontrun{
 data(tT_paths)
-cluster_paths(tT_paths, cluster = 3)
+tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
+cluster_paths(tT_paths_subset, cluster = 3)
 }
 }

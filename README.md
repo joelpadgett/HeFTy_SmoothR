@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# HeFTy_SmoothR
+# HeFTy.SmoothR
 
 <!-- badges: start -->
 
@@ -19,14 +19,14 @@ command line prompt:
 
 ``` r
 # install.packages("remotes") # install if needed
-remotes::install_github("padgett/HeFTy_SmoothR")
+remotes::install_github("tobiste/HeFTy.SmoothR")
 ```
 
 The format requirements for the import data are described in the
 detailed walkthrough:
 
 ``` r
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 The following code provides a minimal working example to demonstrate the
@@ -45,7 +45,7 @@ plot_path_density_filled(tT_paths) +
     title = "Kernel density of t-T paths",
     caption = "data from Padgett et al. (accepted)",
     x = "Time (Ma)",
-    y = bquote("Temperature (" * degree * ")")
+    y = bquote("Temperature (" * degree * "C)")
   ) +
   theme_classic() +
   coord_cartesian(expand = FALSE) +
@@ -61,7 +61,7 @@ plot_path_density_filled(tT_paths) +
 The detailed documentation can be found at
 
 ``` r
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 ## Authors

@@ -1,9 +1,9 @@
-#' Cluster t-T paths
+#' Cluster thermal histories
 #'
-#' Hierarchical clustering of t-T paths based on the Hausdorff distance
+#' Groups t-T paths into "path families" based on the *Hausdorff distance*
 #' between paths.
 #'
-#' @param x t-T and GOF data of the modeled paths. Output of [read_hefty_xlsx()].
+#' @param x t-T and GOF data of the modeled paths. Output of [read_hefty()].
 #' @param cluster an integer scalar or vector with the desired number of groups
 #' @param dist character; algorithm to calculate a dissimilarity matrix
 #' (distance) for lines; one of `Euclidean`, `Hausdorff` (the default) or
@@ -20,11 +20,13 @@
 #' @importFrom dplyr summarise group_by tibble
 #' @importFrom stats hclust cutree as.dist kmeans
 #' @importFrom cluster pam
+#' @importFrom forcats as_factor
 #'
 #' @examples
 #' \dontrun{
 #' data(tT_paths)
-#' cluster_paths(tT_paths, cluster = 3)
+#' tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
+#' cluster_paths(tT_paths_subset, cluster = 3)
 #' }
 cluster_paths <- function(x, cluster, dist = c("Hausdorff", "Frechet", "Euclidean"), method = c("hclust", "kmeans", 'pam'), ...) {
   segment <- NULL
@@ -48,5 +50,5 @@ cluster_paths <- function(x, cluster, dist = c("Hausdorff", "Frechet", "Euclidea
     cl <- cluster::pam(dmat, k = cluster, ...)$clustering
   }
 
-  dplyr::tibble(segment = x_lines$segment, cluster = as.factor(cl))
+  dplyr::tibble(segment = x_lines$segment, cluster = forcats::as_factor(cl))
 }

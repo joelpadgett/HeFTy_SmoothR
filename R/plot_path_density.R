@@ -3,7 +3,7 @@
 #' Creates a 2d kernel density estimate of the t-T paths and plots it using
 #' ggplot
 #'
-#' @param x data.frame containing the t-T paths. Output of [read_hefty_xlsx()] or [densify_paths()]
+#' @param x data.frame containing the t-T paths. Output of [read_hefty()] or [densify_paths()]
 #' @param bins integer. Amount of bins used for the kernel density estimate. 50 by default.
 #' @param densify logical. Whether the paths in `x` should be densified first?
 #' Default is `TRUE`.
@@ -11,7 +11,7 @@
 #' the default, includes if any aesthetics are mapped. `FALSE` never includes,
 #' and `TRUE` always includes. It can also be a named logical vector to finely
 #' select the aesthetics to display.
-#' @param ... optional arguments passed to [densify_paths()] (only if `densify=TRUE`).
+#' @param ... Arguments passed on to [densify_paths()] (only if `densify=TRUE`).
 #'
 #' @return ggplot
 #' @import ggplot2

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# HeFTy_SmoothR
+# HeFTy.SmoothR
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/joelpadgett/HeFTy_SmoothR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/joelpadgett/HeFTy_SmoothR/actions/workflows/R-CMD-check.yaml)
@@ -29,13 +29,13 @@ You must have R installed on your system (see http://r-project.org). To install
 
 ```{r echo=TRUE, eval=FALSE}
 # install.packages("remotes") # install if needed
-remotes::install_github("padgett/HeFTy_SmoothR")
+remotes::install_github("tobiste/HeFTy.SmoothR")
 ```
 
 The format requirements for the import data are described in the detailed 
 walkthrough:
 ```{r echo=TRUE, eval=FALSE}
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 The following code provides a minimal working example to demonstrate the import 
@@ -55,7 +55,7 @@ plot_path_density_filled(tT_paths) +
     title = "Kernel density of t-T paths",
     caption = "data from Padgett et al. (accepted)",
     x = "Time (Ma)",
-    y = bquote("Temperature (" * degree * ")")
+    y = bquote("Temperature (" * degree * "C)")
   ) +
   theme_classic() +
   coord_cartesian(expand = FALSE) +
@@ -68,7 +68,7 @@ plot_path_density_filled(tT_paths) +
 The detailed documentation can be found at
 
 ```{r echo=TRUE, eval=FALSE}
-vignette(package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy.SmoothR")
 ```
 
 ## Authors

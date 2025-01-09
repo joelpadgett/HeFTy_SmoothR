@@ -11,7 +11,7 @@ plot_path_density_filled(x, bins = 50L, densify = TRUE, show.legend = NA, ...)
 plot_path_density(x, bins = 50L, densify = TRUE, show.legend = NA, ...)
 }
 \arguments{
-\item{x}{data.frame containing the t-T paths. Output of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}} or \code{\link[=densify_paths]{densify_paths()}}}
+\item{x}{data.frame containing the t-T paths. Output of \code{\link[=read_hefty]{read_hefty()}} or \code{\link[=densify_paths]{densify_paths()}}}
 
 \item{bins}{integer. Amount of bins used for the kernel density estimate. 50 by default.}
 
@@ -23,7 +23,7 @@ the default, includes if any aesthetics are mapped. \code{FALSE} never includes,
 and \code{TRUE} always includes. It can also be a named logical vector to finely
 select the aesthetics to display.}
 
-\item{...}{optional arguments passed to \code{\link[=densify_paths]{densify_paths()}} (only if \code{densify=TRUE}).}
+\item{...}{Arguments passed on to \code{\link[=densify_paths]{densify_paths()}} (only if \code{densify=TRUE}).}
 }
 \value{
 ggplot

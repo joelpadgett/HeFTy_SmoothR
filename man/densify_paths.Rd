@@ -14,7 +14,7 @@ densify_paths(
 )
 }
 \arguments{
-\item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty_xlsx]{read_hefty_xlsx()}}.}
+\item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty]{read_hefty()}}.}
 
 \item{GOF_rank}{numeric. Selects only the \code{GOF_rank}-th highest GOF ranked paths.
 If all GOFs should be used, set to \code{Inf}. Default is \code{10}.}
@@ -26,17 +26,29 @@ segment (between vertices).}
 \item{max_distance}{numeric. Adds points at a maximum distance of
 \code{max_distance} (in Myr) from each other. 1 by default.}
 
-\item{samples}{integer. Number of random samples of the data. This number should
-be less or equal then the \code{nrow(x)}. Be aware that a large number will require
-a long(!) processing time. The default is \code{100}.}
+\item{samples}{integer or character. Number of random samples of the data.
+This number should be less or equal then the amount of paths.
+The default is \code{100}. Paths will be randomly selected \strong{after} the data has
+been filtered by the \code{GOF_rank()}.
+Optional, set \code{samples} to \code{'all'} to consider all paths ignoring the
+\code{GOF_rank()} filter (this sets \code{GOF} to \code{Inf}).
+Set \code{samples} to \code{GOF} to consider all paths after the \code{GOF_rank} filter.}
 
 \item{replace}{logical. Should sampling be with replacement?}
 }
 \value{
-data.frame
+tibble
 }
 \description{
 Adds extra points between the vertices of the path segments
+}
+\note{
+A large sample number \code{n} will require a \strong{long(!)}
+processing time for this function and subsequent methods such as
+\code{\link[=plot_path_density]{plot_path_density()}} or \code{\link[=cluster_paths]{cluster_paths()}}.
+
+If only paths within a specified GOF range should be densified, create a
+subset of the data beforehand using either \code{\link[=subset]{subset()}} or \code{\link[dplyr:filter]{dplyr::filter()}}.
 }
 \examples{
 data(tT_paths)
