@@ -14,16 +14,16 @@
 #' This number should be less or equal then the amount of paths.
 #' The default is `100`. Paths will be randomly selected **after** the data has
 #' been filtered by the `GOF_rank()`.
-#' Optional, set `samples` to `'all'` considers all paths ignoring the `GOF_rank()` filter
-#' (this sets `GOF` to `Inf`). Set `samples` to `GOF` to consider all paths
-#' after the `GOF_rank` filter.
+#' Optional, set `samples` to `'all'` to consider all paths ignoring the
+#' `GOF_rank()` filter (this sets `GOF` to `Inf`).
+#' Set `samples` to `GOF` to consider all paths after the `GOF_rank` filter.
 #' @param replace logical. Should sampling be with replacement?
 #'
-#' @note A large sample number `n` will require a long(!)
+#' @note A large sample number `n` will require a **long(!)**
 #' processing time for this function and subsequent methods such as
-#' [plot_path_density()] or [path_cluster()].
+#' [plot_path_density()] or [cluster_paths()].
 #'
-#' If only paths within a specified GOF range should e desnified, create a
+#' If only paths within a specified GOF range should be densified, create a
 #' subset of the data beforehand using either [subset()] or [dplyr::filter()].
 #'
 #' @return tibble
@@ -98,6 +98,8 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
 #' Densify clustered paths
 #'
 #' @param x clustered t-T paths. Output of [cluster_paths()].
+#' @inheritParams densify_paths
+#' @inheritDotParams densify_paths n max_distance
 #'
 #' @return tibble
 #' @export
@@ -113,11 +115,11 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
 #'   dplyr::group_by(cluster) |>
 #'   densify_cluster()
 #' }
-densify_cluster <- function(x) {
+densify_cluster <- function(x, GOF_rank = Inf, samples = 500, replace = TRUE, ...) {
   time <- temperature <- segment <- cluster <- NULL
   x %>%
     split(.$cluster, drop = TRUE) %>%
-    lapply(densify_paths, GOF_rank = Inf, samples = 500, replace = TRUE, max_distance = 1) %>%
+    lapply(densify_paths, GOF_rank, samples, replace, max_distance, ...) %>%
     do.call(rbind, .) |>
     dplyr::left_join(
       dplyr::select(x, -time, -temperature) |> dplyr::distinct(),

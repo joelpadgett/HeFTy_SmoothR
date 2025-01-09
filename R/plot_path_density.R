@@ -11,7 +11,7 @@
 #' the default, includes if any aesthetics are mapped. `FALSE` never includes,
 #' and `TRUE` always includes. It can also be a named logical vector to finely
 #' select the aesthetics to display.
-#' @param ... optional arguments passed to [densify_paths()] (only if `densify=TRUE`).
+#' @param ... Arguments passed on to [densify_paths()] (only if `densify=TRUE`).
 #'
 #' @return ggplot
 #' @import ggplot2

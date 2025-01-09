@@ -23,7 +23,7 @@ the default, includes if any aesthetics are mapped. \code{FALSE} never includes,
 and \code{TRUE} always includes. It can also be a named logical vector to finely
 select the aesthetics to display.}
 
-\item{...}{optional arguments passed to \code{\link[=densify_paths]{densify_paths()}} (only if \code{densify=TRUE}).}
+\item{...}{Arguments passed on to \code{\link[=densify_paths]{densify_paths()}} (only if \code{densify=TRUE}).}
 }
 \value{
 ggplot

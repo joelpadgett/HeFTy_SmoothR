@@ -4,10 +4,33 @@
 \alias{densify_cluster}
 \title{Densify clustered paths}
 \usage{
-densify_cluster(x)
+densify_cluster(x, GOF_rank = Inf, samples = 500, replace = TRUE, ...)
 }
 \arguments{
 \item{x}{clustered t-T paths. Output of \code{\link[=cluster_paths]{cluster_paths()}}.}
+
+\item{GOF_rank}{numeric. Selects only the \code{GOF_rank}-th highest GOF ranked paths.
+If all GOFs should be used, set to \code{Inf}. Default is \code{10}.}
+
+\item{samples}{integer or character. Number of random samples of the data.
+This number should be less or equal then the amount of paths.
+The default is \code{100}. Paths will be randomly selected \strong{after} the data has
+been filtered by the \code{GOF_rank()}.
+Optional, set \code{samples} to \code{'all'} to consider all paths ignoring the
+\code{GOF_rank()} filter (this sets \code{GOF} to \code{Inf}).
+Set \code{samples} to \code{GOF} to consider all paths after the \code{GOF_rank} filter.}
+
+\item{replace}{logical. Should sampling be with replacement?}
+
+\item{...}{
+  Arguments passed on to \code{\link[=densify_paths]{densify_paths}}
+  \describe{
+    \item{\code{n}}{integer. Adds \code{n} (10 by
+default) equally-spaced extra points along each path
+segment (between vertices).}
+    \item{\code{max_distance}}{numeric. Adds points at a maximum distance of
+\code{max_distance} (in Myr) from each other. 1 by default.}
+  }}
 }
 \value{
 tibble

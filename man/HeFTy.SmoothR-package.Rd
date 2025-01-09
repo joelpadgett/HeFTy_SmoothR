@@ -4,9 +4,9 @@
 \name{HeFTy.SmoothR-package}
 \alias{HeFTy.SmoothR}
 \alias{HeFTy.SmoothR-package}
-\title{HeFTy.SmoothR: Density estimates of inverse thermal history models}
+\title{HeFTy.SmoothR: Analyzing Inverse Thermal History Models}
 \description{
-Creates density plots for HeFTy-modeled time-temperature cooling paths.
+Density estimates and cluster for HeFTy-modeled time-temperature cooling paths.
 }
 \author{
 \strong{Maintainer}: Tobias Stephan \email{tobias.stephan1@yahoo.com} (\href{https://orcid.org/0000-0002-9290-014X}{ORCID})

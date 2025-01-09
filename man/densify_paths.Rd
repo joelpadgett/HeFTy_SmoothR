@@ -30,9 +30,9 @@ segment (between vertices).}
 This number should be less or equal then the amount of paths.
 The default is \code{100}. Paths will be randomly selected \strong{after} the data has
 been filtered by the \code{GOF_rank()}.
-Optional, set \code{samples} to \code{'all'} considers all paths ignoring the \code{GOF_rank()} filter
-(this sets \code{GOF} to \code{Inf}). Set \code{samples} to \code{GOF} to consider all paths
-after the \code{GOF_rank} filter.}
+Optional, set \code{samples} to \code{'all'} to consider all paths ignoring the
+\code{GOF_rank()} filter (this sets \code{GOF} to \code{Inf}).
+Set \code{samples} to \code{GOF} to consider all paths after the \code{GOF_rank} filter.}
 
 \item{replace}{logical. Should sampling be with replacement?}
 }
@@ -43,11 +43,11 @@ tibble
 Adds extra points between the vertices of the path segments
 }
 \note{
-A large sample number \code{n} will require a long(!)
+A large sample number \code{n} will require a \strong{long(!)}
 processing time for this function and subsequent methods such as
-\code{\link[=plot_path_density]{plot_path_density()}} or \code{\link[=path_cluster]{path_cluster()}}.
+\code{\link[=plot_path_density]{plot_path_density()}} or \code{\link[=cluster_paths]{cluster_paths()}}.
 
-If only paths within a specified GOF range should e desnified, create a
+If only paths within a specified GOF range should be densified, create a
 subset of the data beforehand using either \code{\link[=subset]{subset()}} or \code{\link[dplyr:filter]{dplyr::filter()}}.
 }
 \examples{
