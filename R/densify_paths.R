@@ -99,7 +99,6 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
 #'
 #' @param x clustered t-T paths. Output of [cluster_paths()].
 #' @inheritParams densify_paths
-#' @inheritDotParams densify_paths n max_distance
 #'
 #' @return tibble
 #' @export
@@ -115,11 +114,14 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
 #'   dplyr::group_by(cluster) |>
 #'   densify_cluster()
 #' }
-densify_cluster <- function(x, GOF_rank = Inf, samples = 500, replace = TRUE, ...) {
+densify_cluster <- function(x, GOF_rank = Inf, n = 10L, max_distance = 1, samples = 500, replace = TRUE) {
   time <- temperature <- segment <- cluster <- NULL
   x %>%
     split(.$cluster, drop = TRUE) %>%
-    lapply(densify_paths, GOF_rank, samples, replace, max_distance, ...) %>%
+    lapply(
+      FUN = densify_paths,
+      GOF_rank, n, max_distance, samples, replace
+    ) %>%
     do.call(rbind, .) |>
     dplyr::left_join(
       dplyr::select(x, -time, -temperature) |> dplyr::distinct(),
