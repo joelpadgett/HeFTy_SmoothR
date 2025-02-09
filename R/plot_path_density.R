@@ -26,6 +26,7 @@ NULL
 
 #' @rdname plt_density
 #' @export
+#' @importFrom ggplot2 aes geom_density2d_filled ggplot
 plot_path_density_filled <- function(x, bins = 50L, densify = TRUE, show.legend = NA, ...) {
   time <- temperature <- NULL
   if (densify) x <- densify_paths(x, ...)
@@ -36,6 +37,7 @@ plot_path_density_filled <- function(x, bins = 50L, densify = TRUE, show.legend 
 
 #' @rdname plt_density
 #' @export
+#' @importFrom ggplot2 aes geom_density2d ggplot
 plot_path_density <- function(x, bins = 50L, densify = TRUE, show.legend = NA, ...) {
   time <- temperature <- NULL
   if (densify) x <- densify_paths(x, ...)

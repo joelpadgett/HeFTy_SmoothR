@@ -90,8 +90,7 @@ read_hefty_xlsx <- function(fname) {
 #' @return `list` of the individual paths, the constraints, the weighted mean
 #' path and the grain summary statistics.
 #'
-#' @importFrom dplyr mutate as_tibble between case_when row_number right_join select rename across everything join_by matches
-#' @importFrom forcats fct fct_reorder as_factor
+#' @importFrom dplyr across as_tibble everything matches rename
 #'
 #' @export
 #' @examples
