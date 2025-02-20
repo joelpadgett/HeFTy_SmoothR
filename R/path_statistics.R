@@ -3,6 +3,9 @@
 #' Provides binned statistics (mean, median, IQR, quantiles, etc.) of modeled t-T paths.
 #'
 #' @param x t-T and GOF data of the modeled paths. Output of [read_hefty()].
+#' @param breaks either a numeric vector of two or more unique cut points or a
+#' single number (greater than or equal to 2) giving the number of intervals
+#' into which x is to be cut.
 #'
 #' @return tibble.
 #' @export
@@ -10,12 +13,12 @@
 #' @examples
 #' data(tT_paths)
 #' path_statistics(tT_paths)
-path_statistics <- function(x){
+path_statistics <- function(x, breaks = 50){
   bins <- time <- temperature <- NULL
   dplyr::mutate(x,
-         bins = cut(time, breaks = 50)) |>
-    dplyr::group_by(bins, .add = TRUE) |>
+         bins = cut(time, breaks = breaks)) |>
     dplyr::summarise(
+      .by = bins,
       time_min = min(time),
       time_median = stats::median(time, na.rm = TRUE),
       time_max = max(time),
@@ -25,7 +28,6 @@ path_statistics <- function(x){
       temp_5 = stats::quantile(temperature, probs = .05),
       temp_95 = stats::quantile(temperature, probs = .95),
       temp_max = min(temperature),
-      temp_min = max(temperature),
-      .groups = "keep"
+      temp_min = max(temperature)
     )
 }

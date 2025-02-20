@@ -4,10 +4,14 @@
 \alias{path_statistics}
 \title{Path statistics}
 \usage{
-path_statistics(x)
+path_statistics(x, breaks = 50)
 }
 \arguments{
 \item{x}{t-T and GOF data of the modeled paths. Output of \code{\link[=read_hefty]{read_hefty()}}.}
+
+\item{breaks}{either a numeric vector of two or more unique cut points or a
+single number (greater than or equal to 2) giving the number of intervals
+into which x is to be cut.}
 }
 \value{
 tibble.
