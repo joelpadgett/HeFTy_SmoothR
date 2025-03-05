@@ -1,12 +1,12 @@
 Package: HeFTy.SmoothR
 Title: Analyzing Inverse Thermal History Models
-Version: 0.4.3.9003
+Version: 0.4.3.9004
 Authors@R: c(
     person("Joel", "Padgett", , "joel.padgett@ucalgary.ca", role = c("aut", "cph")),
     person("Tobias", "Stephan", , "tobias.stephan1@yahoo.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9290-014X"))
   )
-Description: Density estimates and cluster for HeFTy-modeled time-temperature
+Description: Density estimates for HeFTy-modeled time-temperature
     cooling paths.
 License: MIT + file LICENSE
 Depends: 
