@@ -12,7 +12,6 @@ License: MIT + file LICENSE
 Depends: 
     R (>= 4.1.0)
 Imports:
-    cluster (>= 2.1.4),
     dplyr (>= 1.1.4),
     forcats,
     ggplot2 (>= 3.5.1),

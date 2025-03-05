@@ -44,8 +44,7 @@ Adds extra points between the vertices of the path segments
 }
 \note{
 A large sample number \code{n} will require a \strong{long(!)}
-processing time for this function and subsequent methods such as
-\code{\link[=plot_path_density]{plot_path_density()}} or \code{\link[=cluster_paths]{cluster_paths()}}.
+processing time for this function.
 
 If only paths within a specified GOF range should be densified, create a
 subset of the data beforehand using either \code{\link[=subset]{subset()}} or \code{\link[dplyr:filter]{dplyr::filter()}}.

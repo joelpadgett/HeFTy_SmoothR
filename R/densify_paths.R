@@ -20,8 +20,7 @@
 #' @param replace logical. Should sampling be with replacement?
 #'
 #' @note A large sample number `n` will require a **long(!)**
-#' processing time for this function and subsequent methods such as
-#' [plot_path_density()] or [cluster_paths()].
+#' processing time for this function.
 #'
 #' If only paths within a specified GOF range should be densified, create a
 #' subset of the data beforehand using either [subset()] or [dplyr::filter()].
@@ -93,40 +92,4 @@ densify_paths <- function(x, GOF_rank = 10L, n = 10L, max_distance = 1, samples 
     dplyr::left_join(lookup, dplyr::join_by(L1)) |>
     dplyr::rename(time = X, temperature = Y) %>%
     dplyr::select(-dplyr::any_of(c("L1", "L2")))
-}
-
-#' Densify clustered paths
-#'
-#' @param x clustered t-T paths. Output of [cluster_paths()].
-#' @inheritParams densify_paths
-#'
-#' @return tibble
-#' @export
-#'
-#' @importFrom dplyr group_by left_join distinct select join_by
-#'
-#' @examples
-#' \dontrun{
-#' data(tT_paths)
-#' tT_paths_subset <- subset(tT_paths, Comp_GOF >= 0.5)
-#' cluster_paths(tT_paths_subset, cluster = 3) |>
-#'   merge(tT_paths_subset, by = "segment") |>
-#'   dplyr::group_by(cluster) |>
-#'   densify_cluster()
-#' }
-densify_cluster <- function(x, GOF_rank = Inf, n = 10L, max_distance = 1, samples = 500, replace = TRUE) {
-  time <- temperature <- segment <- cluster <- NULL
-  x %>%
-    split(.$cluster, drop = TRUE) %>%
-    lapply(
-      FUN = densify_paths,
-      GOF_rank, n, max_distance, samples, replace
-    ) %>%
-    do.call(rbind, .) |>
-    dplyr::left_join(
-      dplyr::select(x, -time, -temperature) |> dplyr::distinct(),
-      dplyr::join_by(segment),
-      relationship = "many-to-many"
-    ) |>
-    dplyr::group_by(cluster)
 }

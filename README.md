@@ -9,7 +9,7 @@
 <!-- badges: end -->
 
 Density plots derived from HeFTy inverse thermal history models as used
-in Padgett et al. (accepted) and Johns-Buss et al. (submitted).
+in Padgett et al. (in press) and Johns-Buss et al. (submitted).
 
 ## Prerequisites
 
@@ -19,14 +19,14 @@ command line prompt:
 
 ``` r
 # install.packages("remotes") # install if needed
-remotes::install_github("tobiste/HeFTy.SmoothR")
+remotes::install_github("padgett/HeFTy_SmoothR")
 ```
 
 The format requirements for the import data are described in the
 detailed walkthrough:
 
 ``` r
-vignette('hefty_smoothr', package = "HeFTy.SmoothR")
+vignette('hefty_smoothr', package = "HeFTy_SmoothR")
 ```
 
 The following code provides a minimal working example to demonstrate the
@@ -43,11 +43,10 @@ tT_paths <- read_hefty_xlsx(path2myfile)
 plot_path_density_filled(tT_paths) +
   labs(
     title = "Kernel density of t-T paths",
-    caption = "data from Padgett et al. (accepted)",
+    caption = "data from Padgett et al. (in press)",
     x = "Time (Ma)",
     y = bquote("Temperature (" * degree * "C)")
   ) +
-  theme_classic() +
   coord_cartesian(expand = FALSE) +
   scale_x_continuous(transform = "reverse", position = "top") +
   scale_y_continuous(transform = "reverse") +
@@ -76,9 +75,8 @@ If you use this package in your research, please cite the following:
 
 Padgett, J., Enkelmann, E., Kellett, D., Moynihan, D., and Stephan, T.
 “Cenozoic exhumation and fault reactivation in southeastern Yukon
-constrained by low-temperature thermochronology”. accepted for
-publication in *Canadian Journal of Earth Sciences*. DOI:
-10.1139/cjes-2024-0147.
+constrained by low-temperature thermochronology”. *Canadian Journal of
+Earth Sciences* (in press). DOI: 10.1139/cjes-2024-0147.
 
 ## Feedback, issues, and contributions
 
